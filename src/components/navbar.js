@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
   Container,
   AppBar,
@@ -9,6 +10,7 @@ import {
   IconButton,
   Typography,
   InputBase,
+  Badge,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -53,7 +55,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function NavBar({ handlerSearch }) {
+export default function NavBar({ handlerSearch, myFavoriteList }) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
@@ -75,7 +77,14 @@ export default function NavBar({ handlerSearch }) {
               aria-label="open drawer"
               sx={{ mr: 2 }}
             >
-              <Link to="/about">Favorite movies</Link>
+              <Badge
+                badgeContent={myFavoriteList ? myFavoriteList.length : 0}
+                color="error"
+              >
+                <Link to="/favorite">
+                  <FavoriteIcon />
+                </Link>
+              </Badge>
             </IconButton>
             <Typography
               variant="h6"

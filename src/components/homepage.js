@@ -6,6 +6,7 @@ export default function Home({
   arrayMovies,
   myFavoriteList,
   setMyFavoriteList,
+  setViewerMovie,
 }) {
   return (
     <>
@@ -18,23 +19,23 @@ export default function Home({
                     <Grid key={item.id} item xs={6} md={3}>
                       <Card
                         title={item.title}
-                        overview={item.overview}
+                        voteAverage={item.vote_average}
                         poster={item.poster_path}
+                        myFavoriteList={myFavoriteList}
+                        setMyFavoriteList={setMyFavoriteList}
                         id={item.id}
+                        handleCard={() => {
+                          setViewerMovie(item);
+                        }}
                         handleButton={(clickId) => {
                           if (item.id === clickId) {
-                            setMyFavoriteList([...myFavoriteList, item]);
+                            const newFavoriteList = [...myFavoriteList, item];
+                            setMyFavoriteList(newFavoriteList);
+                            localStorage.setItem(
+                              "favorite-movie",
+                              JSON.stringify(newFavoriteList)
+                            );
                           }
-                          myFavoriteList.forEach((movie) => {
-                            if (movie.id === clickId) {
-                              const deleteMovie = myFavoriteList.filter(
-                                (el) => {
-                                  return el.id !== clickId;
-                                }
-                              );
-                              setMyFavoriteList([...deleteMovie]);
-                            }
-                          });
                         }}
                       />
                     </Grid>

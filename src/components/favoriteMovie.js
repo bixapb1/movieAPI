@@ -2,7 +2,11 @@ import * as React from "react";
 import { Box, Grid, Container } from "@mui/material";
 import Card from "./card";
 
-export default function Favorite({ myFavoriteList, setMyFavoriteList }) {
+export default function Favorite({
+  myFavoriteList,
+  setMyFavoriteList,
+  setViewerMovie,
+}) {
   return (
     <>
       <Container sx={{ mt: 10 }} maxWidth="xl">
@@ -14,23 +18,21 @@ export default function Favorite({ myFavoriteList, setMyFavoriteList }) {
                     <Grid key={item.id} item xs={6} md={3}>
                       <Card
                         title={item.title}
-                        overview={item.overview}
+                        voteAverage={item.vote_average}
                         poster={item.poster_path}
                         id={item.id}
+                        myFavoriteList={myFavoriteList}
+                        setMyFavoriteList={setMyFavoriteList}
+                        removeFavorite="Delete movie"
                         handleButton={(clickId) => {
                           if (item.id === clickId) {
-                            setMyFavoriteList([...myFavoriteList, item]);
+                            const newFavoriteList = [...myFavoriteList, item];
+                            setMyFavoriteList(newFavoriteList);
+                            localStorage.setItem(
+                              "favorite-movie",
+                              JSON.stringify(newFavoriteList)
+                            );
                           }
-                          myFavoriteList.forEach((movie) => {
-                            if (movie.id === clickId) {
-                              const deleteMovie = myFavoriteList.filter(
-                                (el) => {
-                                  return el.id !== clickId;
-                                }
-                              );
-                              setMyFavoriteList([...deleteMovie]);
-                            }
-                          });
                         }}
                       />
                     </Grid>

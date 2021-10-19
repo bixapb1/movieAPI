@@ -1,5 +1,6 @@
 import * as React from "react";
-import { useState } from "react";
+import noPoster from "../assets/no-poster.jpg";
+import { Link } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -8,17 +9,20 @@ import {
   CardActionArea,
   Button,
   CardActions,
+  Rating,
 } from "@mui/material/";
 
 export default function ActionAreaCard({
   title,
-  overview,
+  voteAverage,
   id,
   poster,
   handleButton,
+  myFavoriteList,
+  setMyFavoriteList,
+  removeFavorite,
+  handleCard,
 }) {
-  const [addMovie, setAddMovie] = useState(false);
-
   return (
     <Card
       key={id}
@@ -29,25 +33,46 @@ export default function ActionAreaCard({
       }}
     >
       <CardActionArea
+        component={Link}
+        to={`/movie/${id}`}
         sx={{
           height: "95%",
           display: "flex",
           justifyContent: "flex-start",
           flexDirection: "column",
         }}
+        onClick={handleCard}
       >
         <CardMedia
           component="img"
           height="auto"
-          src={`https://image.tmdb.org/t/p/w500/${poster}`}
+          src={poster ? `https://image.tmdb.org/t/p/w500/${poster}` : noPoster}
           alt={title}
         />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+        <CardContent
+          sx={{
+            flexGrow: "1",
+            display: `flex`,
+            alignItems: `center`,
+            justifyContent: `center`,
+            flexDirection: `column`,
+          }}
+        >
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            sx={{ textAlign: "center" }}
+          >
             {title}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {overview}
+            <Rating
+              name="half-rating-read"
+              defaultValue={voteAverage / 2}
+              precision={0.5}
+              readOnly
+            />
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -60,6 +85,7 @@ export default function ActionAreaCard({
         }}
       >
         <Button
+          id={id}
           sx={{
             height: "100%",
             width: "100%",
@@ -67,16 +93,24 @@ export default function ActionAreaCard({
           }}
           size="small"
           color="primary"
-          onClick={(event) => {
+          onClick={() => {
             handleButton(id);
-            addMovie
-              ? (event.target.innerText = "Add to watch list") &&
-                setAddMovie(!addMovie)
-              : (event.target.innerText = "Delete to watch list") &&
-                setAddMovie(!addMovie);
+            myFavoriteList.forEach((movie) => {
+              if (movie.id === id) {
+                const deleteMovie = myFavoriteList.filter((el) => {
+                  return el.id !== id;
+                });
+                const removeMovieToStorage = [...deleteMovie];
+                setMyFavoriteList(removeMovieToStorage);
+                localStorage.setItem(
+                  "favorite-movie",
+                  JSON.stringify(removeMovieToStorage)
+                );
+              }
+            });
           }}
         >
-          Add to watch list
+          {removeFavorite ? removeFavorite : "add movie"}
         </Button>
       </CardActions>
     </Card>
