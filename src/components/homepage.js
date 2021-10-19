@@ -2,7 +2,11 @@ import * as React from "react";
 import { Box, Grid, Container } from "@mui/material";
 import Card from "./card";
 
-export default function Home({ arrayMovies }) {
+export default function Home({
+  arrayMovies,
+  myFavoriteList,
+  setMyFavoriteList,
+}) {
   return (
     <>
       <Container sx={{ mt: 10 }} maxWidth="xl">
@@ -17,6 +21,21 @@ export default function Home({ arrayMovies }) {
                         overview={item.overview}
                         poster={item.poster_path}
                         id={item.id}
+                        handleButton={(clickId) => {
+                          if (item.id === clickId) {
+                            setMyFavoriteList([...myFavoriteList, item]);
+                          }
+                          myFavoriteList.forEach((movie) => {
+                            if (movie.id === clickId) {
+                              const deleteMovie = myFavoriteList.filter(
+                                (el) => {
+                                  return el.id !== clickId;
+                                }
+                              );
+                              setMyFavoriteList([...deleteMovie]);
+                            }
+                          });
+                        }}
                       />
                     </Grid>
                   );

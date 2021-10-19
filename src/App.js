@@ -7,13 +7,14 @@ import Favorite from "./components/favoriteMovie";
 import { url } from "./components/const";
 
 function App() {
-  const [popularMovies, setPopularMovies] = useState();
-  const [search, setSearch] = useState();
+  const [popularMovies, setPopularMovies] = useState("");
+  const [search, setSearch] = useState("");
+  const [myFavoriteList, setMyFavoriteList] = useState([]);
   useEffect(() => {
     fetch(url)
       .then((data) => data.json())
       .then((data) => {
-        if ((search ? search.length : "") !== "") {
+        if (search !== "") {
           const filter = Object.values(data)[1].filter((item) => {
             return item.title.toUpperCase().indexOf(search) > -1;
           });
@@ -33,10 +34,17 @@ function App() {
       />
       <Switch>
         <Route exact path="/about">
-          <Favorite />
+          <Favorite
+            myFavoriteList={myFavoriteList}
+            setMyFavoriteList={setMyFavoriteList}
+          />
         </Route>
         <Route exact path="/">
-          <Home arrayMovies={popularMovies} />
+          <Home
+            arrayMovies={popularMovies}
+            myFavoriteList={myFavoriteList}
+            setMyFavoriteList={setMyFavoriteList}
+          />
         </Route>
       </Switch>
     </Router>
