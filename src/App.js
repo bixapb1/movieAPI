@@ -2,7 +2,7 @@ import { useEffect, useState, createContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/Navbar";
-import Home from "./components/HomePage";
+import Home from "./components/Home";
 import Favorite from "./components/FavoriteMovie";
 import ViewerMovie from "./components/ViewerMovie";
 export const Context = createContext();
