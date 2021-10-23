@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import noPoster from "../assets/no-poster.jpg";
 import { Link } from "react-router-dom";
 import { Context } from "../App";
@@ -15,9 +15,13 @@ import {
 
 export default function ActionAreaCard({ movie }) {
   const { title, vote_average, id, poster_path } = movie;
-  const [button, setButton] = useState(true);
   const { myFavoriteList, setMyFavoriteList, setViewerMovie } =
     useContext(Context);
+
+  const findMovie = myFavoriteList.find((movieID) => {
+    return movieID.id === id;
+  });
+
   function addStorageFavoritList(listMovie) {
     setMyFavoriteList(listMovie);
     localStorage.setItem("favorite-movie", JSON.stringify(listMovie));
@@ -100,11 +104,7 @@ export default function ActionAreaCard({ movie }) {
           size="small"
           color="primary"
           onClick={() => {
-            const deleteFavoriteMovie = myFavoriteList.find((movieID) => {
-              return movieID.id === id;
-            });
-            setButton(Boolean(deleteFavoriteMovie));
-            if (Boolean(deleteFavoriteMovie)) {
+            if (Boolean(findMovie)) {
               const favoriteList = myFavoriteList.filter((movieID) => {
                 return movieID.id !== id;
               });
@@ -115,7 +115,7 @@ export default function ActionAreaCard({ movie }) {
             }
           }}
         >
-          {button ? "add movie" : "remove movie"}
+          {Boolean(findMovie) ? "remove movie" : "add movie"}
         </Button>
       </CardActions>
     </Card>
