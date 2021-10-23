@@ -1,6 +1,7 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import noPoster from "../assets/no-poster.jpg";
 import { Link } from "react-router-dom";
+import { Context } from "../App";
 import {
   Card,
   CardContent,
@@ -12,23 +13,26 @@ import {
   Rating,
 } from "@mui/material/";
 
-export default function ActionAreaCard({
-  title,
-  voteAverage,
-  id,
-  poster,
-  handleButton,
-  myFavoriteList,
-  setMyFavoriteList,
-  removeFavorite,
-  handleCard,
-}) {
+export default function ActionAreaCard({ movie }) {
+  const { title, vote_average, id, poster_path } = movie;
+  const { myFavoriteList, setMyFavoriteList, setViewerMovie } =
+    useContext(Context);
+
+  const findMovie = myFavoriteList.find((movieID) => {
+    return movieID.id === id;
+  });
+
+  function addStorageFavoritList(listMovie) {
+    setMyFavoriteList(listMovie);
+    localStorage.setItem("favorite-movie", JSON.stringify(listMovie));
+  }
+
   return (
     <Card
       key={id}
       id={id}
       sx={{
-        maxWidth: 345,
+        maxWidth: 300,
         height: "100%",
       }}
     >
@@ -41,12 +45,18 @@ export default function ActionAreaCard({
           justifyContent: "flex-start",
           flexDirection: "column",
         }}
-        onClick={handleCard}
+        onClick={() => {
+          setViewerMovie(movie);
+        }}
       >
         <CardMedia
           component="img"
           height="auto"
-          src={poster ? `https://image.tmdb.org/t/p/w500/${poster}` : noPoster}
+          src={
+            poster_path
+              ? `https://image.tmdb.org/t/p/w500/${poster_path}`
+              : noPoster
+          }
           alt={title}
         />
         <CardContent
@@ -69,7 +79,7 @@ export default function ActionAreaCard({
           <Typography variant="body2" color="text.secondary">
             <Rating
               name="half-rating-read"
-              defaultValue={voteAverage / 2}
+              defaultValue={vote_average / 2}
               precision={0.5}
               readOnly
             />
@@ -94,23 +104,18 @@ export default function ActionAreaCard({
           size="small"
           color="primary"
           onClick={() => {
-            handleButton(id);
-            myFavoriteList.forEach((movie) => {
-              if (movie.id === id) {
-                const deleteMovie = myFavoriteList.filter((el) => {
-                  return el.id !== id;
-                });
-                const removeMovieToStorage = [...deleteMovie];
-                setMyFavoriteList(removeMovieToStorage);
-                localStorage.setItem(
-                  "favorite-movie",
-                  JSON.stringify(removeMovieToStorage)
-                );
-              }
-            });
+            if (Boolean(findMovie)) {
+              const favoriteList = myFavoriteList.filter((movieID) => {
+                return movieID.id !== id;
+              });
+              addStorageFavoritList(favoriteList);
+            } else {
+              const addFavoriteMovie = [...myFavoriteList, movie];
+              addStorageFavoritList(addFavoriteMovie);
+            }
           }}
         >
-          {removeFavorite ? removeFavorite : "add movie"}
+          {Boolean(findMovie) ? "remove movie" : "add movie"}
         </Button>
       </CardActions>
     </Card>
