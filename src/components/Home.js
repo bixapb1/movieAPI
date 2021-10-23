@@ -7,7 +7,7 @@ export default function Home({ arrayMovies }) {
     <>
       <Container sx={{ mt: 10 }} maxWidth="xl">
         <Box sx={{ flexGrow: 1 }}>
-          <Grid container spacing={2}>
+          <Grid container spacing={2} sx={{ justifyContent: "center" }}>
             {arrayMovies
               ? arrayMovies.map((movie) => {
                   return (
