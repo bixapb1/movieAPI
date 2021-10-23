@@ -15,8 +15,10 @@ export default function ViewerMovie({ viewerMovie }) {
   return (
     <Grid
       sx={{
-        mt: 10,
-        px: 20,
+        pt: 10,
+        px: 1,
+        m: "auto",
+        width: "100%",
       }}
       container
       spacing={2}
