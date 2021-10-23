@@ -21,6 +21,9 @@ export default function ActionAreaCard({ movie }) {
   const findMovie = myFavoriteList.find((movieID) => {
     return movieID.id === id;
   });
+  const deleteMovie = myFavoriteList.filter((movieID) => {
+    return movieID.id !== id;
+  });
 
   function addStorageFavoritList(listMovie) {
     setMyFavoriteList(listMovie);
@@ -105,10 +108,7 @@ export default function ActionAreaCard({ movie }) {
           color="primary"
           onClick={() => {
             if (Boolean(findMovie)) {
-              const favoriteList = myFavoriteList.filter((movieID) => {
-                return movieID.id !== id;
-              });
-              addStorageFavoritList(favoriteList);
+              addStorageFavoritList(deleteMovie);
             } else {
               const addFavoriteMovie = [...myFavoriteList, movie];
               addStorageFavoritList(addFavoriteMovie);
