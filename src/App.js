@@ -11,18 +11,17 @@ function App() {
   const [arrayMovies, setArrayMovies] = useState([]);
   const [search, setSearch] = useState("");
   const [myFavoriteList, setMyFavoriteList] = useState([]);
-  const [viewerMovie, setViewerMovie] = useState([]);
   const getMovieRequest = async (search) => {
     const url = `https://api.themoviedb.org/3/search/movie?api_key=aba76a579f8ef1f0586b7ce86f0bf326&query=${search}&language=en-US`;
     const response = await fetch(url);
     const responseJson = await response.json();
-    setArrayMovies(Object.values(responseJson)[1]);
+    setArrayMovies(responseJson.results);
   };
   const getMoviePopular = async () => {
     const url = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=aba76a579f8ef1f0586b7ce86f0bf326&language=en-US`;
     const response = await fetch(url);
     const responseJson = await response.json();
-    setArrayMovies(Object.values(responseJson)[1]);
+    setArrayMovies(responseJson.results);
   };
 
   useEffect(() => {
@@ -48,7 +47,6 @@ function App() {
           setArrayMovies,
           myFavoriteList,
           setMyFavoriteList,
-          setViewerMovie,
         }}
       >
         <Router>
@@ -66,7 +64,7 @@ function App() {
               <Home arrayMovies={arrayMovies} />
             </Route>
             <Route exact path="/movie/:id">
-              <ViewerMovie viewerMovie={viewerMovie} />
+              <ViewerMovie />
             </Route>
           </Switch>
         </Router>

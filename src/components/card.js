@@ -15,8 +15,7 @@ import {
 
 export default function ActionAreaCard({ movie }) {
   const { title, vote_average, id, poster_path } = movie;
-  const { myFavoriteList, setMyFavoriteList, setViewerMovie } =
-    useContext(Context);
+  const { myFavoriteList, setMyFavoriteList } = useContext(Context);
 
   const findMovie = myFavoriteList.find((movieID) => {
     return movieID.id === id;
@@ -47,9 +46,6 @@ export default function ActionAreaCard({ movie }) {
           display: "flex",
           justifyContent: "flex-start",
           flexDirection: "column",
-        }}
-        onClick={() => {
-          setViewerMovie(movie);
         }}
       >
         <CardMedia
@@ -82,7 +78,8 @@ export default function ActionAreaCard({ movie }) {
           <Typography variant="body2" color="text.secondary">
             <Rating
               name="half-rating-read"
-              defaultValue={vote_average / 2}
+              defaultValue={0}
+              value={vote_average / 2}
               precision={0.5}
               readOnly
             />
