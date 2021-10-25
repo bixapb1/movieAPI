@@ -1,4 +1,6 @@
-import * as React from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router";
+
 import {
   CardContent,
   CardMedia,
@@ -10,22 +12,31 @@ import {
 import noPoster from "../assets/no-poster.jpg";
 import { Link } from "react-router-dom";
 
-export default function ViewerMovie({ viewerMovie }) {
-  console.log(viewerMovie);
+export default function ViewerMovie() {
+  const [viewerMovie, setViewerMovie] = useState([]);
+  const getMovieViewer = async (id) => {
+    const url = `https://api.themoviedb.org/3/movie/${id}?api_key=aba76a579f8ef1f0586b7ce86f0bf326&language=en-US`;
+    const response = await fetch(url);
+    const responseJson = await response.json();
+    setViewerMovie(responseJson);
+  };
+  let { id } = useParams();
+  useEffect(() => {
+    getMovieViewer(id);
+  }, [id]);
+
   return (
     <Grid
       sx={{
-        pt: 10,
+        mt: 10,
         px: 1,
-        m: "auto",
-        width: "100%",
       }}
       container
       spacing={2}
       justifyContent="center"
       alignItems="center"
     >
-      <Grid xs={12} md={6}>
+      <Grid item xs={12} md={6}>
         <CardMedia
           sx={{
             maxWidth: 345,
@@ -43,11 +54,9 @@ export default function ViewerMovie({ viewerMovie }) {
         />
       </Grid>
 
-      <Grid xs={12} md={6}>
+      <Grid item xs={12} md={6}>
         {" "}
         <CardContent
-          xs={12}
-          md={6}
           sx={{
             display: "flex",
             justifyContent: "center",
@@ -74,9 +83,25 @@ export default function ViewerMovie({ viewerMovie }) {
           >
             Release date: {viewerMovie.release_date}
           </Typography>
+          <Typography
+            sx={{ justifyContent: "space-between", py: 1 }}
+            component="span"
+            variant="body1"
+            color="text.secondary.black"
+          >
+            Genres:
+            {Boolean(viewerMovie.length !== 0)
+              ? viewerMovie.genres.map((genre) => (
+                  <Typography component="span" sx={{ pl: 1 }} key={genre.id}>
+                    {genre.name}
+                  </Typography>
+                ))
+              : ""}
+          </Typography>
           <Rating
             name="half-rating-read"
-            defaultValue={viewerMovie.vote_average / 2}
+            defaultValue={0}
+            value={viewerMovie.vote_average / 2}
             precision={0.5}
             readOnly
           />
