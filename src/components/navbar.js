@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -55,7 +56,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function NavBar({ handlerSearch, myFavoriteList }) {
+export default function NavBar() {
+  const myFavoriteMovies = useSelector((state) => state.myFavoriteMovies);
+  const dispatch = useDispatch();
+
+  function search(event) {
+    dispatch({ type: "search", payload: event.target.value });
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
@@ -78,7 +86,7 @@ export default function NavBar({ handlerSearch, myFavoriteList }) {
               sx={{ mr: 2 }}
             >
               <Badge
-                badgeContent={myFavoriteList ? myFavoriteList.length : 0}
+                badgeContent={myFavoriteMovies ? myFavoriteMovies.length : 0}
                 color="error"
               >
                 <Link to="/favorite">
@@ -92,7 +100,7 @@ export default function NavBar({ handlerSearch, myFavoriteList }) {
               component="div"
               sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
             ></Typography>
-            <Search onChange={handlerSearch}>
+            <Search onChange={(event) => search(event)}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>

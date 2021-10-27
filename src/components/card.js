@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import noPoster from "../assets/no-poster.jpg";
 import { Link } from "react-router-dom";
-import { Context } from "../App";
 import {
   Card,
   CardContent,
@@ -13,20 +12,30 @@ import {
   Rating,
 } from "@mui/material/";
 
-export default function ActionAreaCard({ movie }) {
+export default function MovieCard({ movie }) {
   const { title, vote_average, id, poster_path } = movie;
-  const { myFavoriteList, setMyFavoriteList } = useContext(Context);
+  const myFavoriteMovies = useSelector((state) => state.myFavoriteMovies);
+  const dispatch = useDispatch();
 
-  const findMovie = myFavoriteList.find((movieID) => {
+  const findMovie = myFavoriteMovies.find((movieID) => {
     return movieID.id === id;
   });
-  const deleteMovie = myFavoriteList.filter((movieID) => {
+  const deleteMovie = myFavoriteMovies.filter((movieID) => {
     return movieID.id !== id;
   });
 
   function addStorageFavoritList(listMovie) {
-    setMyFavoriteList(listMovie);
+    dispatch({ type: "myFavoriteMovies", payload: listMovie });
     localStorage.setItem("favorite-movie", JSON.stringify(listMovie));
+  }
+
+  function handleCardButton() {
+    if (Boolean(findMovie)) {
+      addStorageFavoritList(deleteMovie);
+    } else {
+      const addFavoriteMovie = [...myFavoriteMovies, movie];
+      addStorageFavoritList(addFavoriteMovie);
+    }
   }
 
   return (
@@ -103,14 +112,7 @@ export default function ActionAreaCard({ movie }) {
           }}
           size="small"
           color="primary"
-          onClick={() => {
-            if (Boolean(findMovie)) {
-              addStorageFavoritList(deleteMovie);
-            } else {
-              const addFavoriteMovie = [...myFavoriteList, movie];
-              addStorageFavoritList(addFavoriteMovie);
-            }
-          }}
+          onClick={handleCardButton}
         >
           {Boolean(findMovie) ? "remove movie" : "add movie"}
         </Button>

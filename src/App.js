@@ -1,27 +1,27 @@
-import { useEffect, useState, createContext } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/Navbar";
 import Home from "./components/Home";
 import Favorite from "./components/FavoriteMovie";
 import ViewerMovie from "./components/ViewerMovie";
-export const Context = createContext();
 
 function App() {
-  const [arrayMovies, setArrayMovies] = useState([]);
-  const [search, setSearch] = useState("");
-  const [myFavoriteList, setMyFavoriteList] = useState([]);
+  const dispatch = useDispatch();
+  const search = useSelector((state) => state.search);
+
   const getMovieRequest = async (search) => {
     const url = `https://api.themoviedb.org/3/search/movie?api_key=aba76a579f8ef1f0586b7ce86f0bf326&query=${search}&language=en-US`;
     const response = await fetch(url);
     const responseJson = await response.json();
-    setArrayMovies(responseJson.results);
+    dispatch({ type: "setArrayMovies", payload: responseJson.results });
   };
   const getMoviePopular = async () => {
     const url = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=aba76a579f8ef1f0586b7ce86f0bf326&language=en-US`;
     const response = await fetch(url);
     const responseJson = await response.json();
-    setArrayMovies(responseJson.results);
+    dispatch({ type: "setArrayMovies", payload: responseJson.results });
   };
 
   useEffect(() => {
@@ -30,45 +30,28 @@ function App() {
     } else {
       getMoviePopular();
     }
-  }, [search]);
+  });
 
   useEffect(() => {
-    const movieFavorites = JSON.parse(localStorage.getItem("favorite-movie"));
-    if (movieFavorites) {
-      setMyFavoriteList(movieFavorites);
-    }
-  }, []);
+    dispatch({ type: "LocalStorage" });
+  });
 
   return (
     <>
-      <Context.Provider
-        value={{
-          arrayMovies,
-          setArrayMovies,
-          myFavoriteList,
-          setMyFavoriteList,
-        }}
-      >
-        <Router>
-          <NavBar
-            myFavoriteList={myFavoriteList}
-            handlerSearch={(event) => {
-              setSearch(event.target.value);
-            }}
-          />
-          <Switch>
-            <Route exact path="/favorite">
-              <Favorite myFavoriteList={myFavoriteList} />
-            </Route>
-            <Route exact path="/">
-              <Home arrayMovies={arrayMovies} />
-            </Route>
-            <Route exact path="/movie/:id">
-              <ViewerMovie />
-            </Route>
-          </Switch>
-        </Router>
-      </Context.Provider>
+      <Router>
+        <NavBar />
+        <Switch>
+          <Route exact path="/favorite">
+            <Favorite />
+          </Route>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route exact path="/movie/:id">
+            <ViewerMovie />
+          </Route>
+        </Switch>
+      </Router>
     </>
   );
 }
