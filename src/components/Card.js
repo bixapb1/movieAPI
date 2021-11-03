@@ -11,6 +11,7 @@ import {
   CardActions,
   Rating,
 } from "@mui/material/";
+
 import { favoriteMovies } from "../redux/actions";
 export default function MovieCard({ movie }) {
   const { title, vote_average, id, poster_path } = movie;
@@ -25,6 +26,7 @@ export default function MovieCard({ movie }) {
   });
 
   function addStorageFavoritList(listMovie) {
+
     dispatch(favoriteMovies(listMovie));
     localStorage.setItem("favorite-movie", JSON.stringify(listMovie));
   }
@@ -37,6 +39,7 @@ export default function MovieCard({ movie }) {
       addStorageFavoritList(addFavoriteMovie);
     }
   }
+
 
   return (
     <Card
@@ -113,6 +116,7 @@ export default function MovieCard({ movie }) {
           size="small"
           color="primary"
           onClick={handleCardButton}
+
         >
           {Boolean(findMovie) ? "remove movie" : "add movie"}
         </Button>

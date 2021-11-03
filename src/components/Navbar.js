@@ -29,7 +29,6 @@ const Search = styled("div")(({ theme }) => ({
     width: "auto",
   },
 }));
-
 const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: "100%",
@@ -39,7 +38,6 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
 }));
-
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
@@ -55,11 +53,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-
 export default function NavBar() {
   const myFavoriteMovies = useSelector((state) => state.myFavoriteMovies);
   const dispatch = useDispatch();
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
@@ -83,6 +79,7 @@ export default function NavBar() {
             >
               <Badge
                 badgeContent={myFavoriteMovies ? myFavoriteMovies.length : 0}
+
                 color="error"
               >
                 <Link to="/favorite">

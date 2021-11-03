@@ -11,6 +11,7 @@ export default function Favorite() {
           <Grid container spacing={2} sx={{ justifyContent: "center" }}>
             {myFavoriteMovies
               ? myFavoriteMovies.map((movie) => {
+
                   return (
                     <Grid key={movie.id} item sm={6} md={3}>
                       <Card movie={movie} />
