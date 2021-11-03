@@ -2,7 +2,6 @@ import * as React from "react";
 import { useSelector } from "react-redux";
 import { Box, Grid, Container } from "@mui/material";
 import Card from "./Card";
-
 export default function Favorite() {
   const myFavoriteMovies = useSelector((state) => state.myFavoriteMovies);
   return (

@@ -14,7 +14,7 @@ import {
   Badge,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-
+import { search } from "../redux/actions";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -60,10 +60,6 @@ export default function NavBar() {
   const myFavoriteMovies = useSelector((state) => state.myFavoriteMovies);
   const dispatch = useDispatch();
 
-  function search(event) {
-    dispatch({ type: "search", payload: event.target.value });
-  }
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
@@ -100,7 +96,7 @@ export default function NavBar() {
               component="div"
               sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
             ></Typography>
-            <Search onChange={(event) => search(event)}>
+            <Search onChange={(event) => dispatch(search(event.target.value))}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>

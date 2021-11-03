@@ -12,21 +12,15 @@ import {
 } from "@mui/material/";
 import noPoster from "../assets/no-poster.jpg";
 import { Link } from "react-router-dom";
-
+import { fetchMovieView } from "../redux/actions";
 export default function ViewerMovie() {
   const viewerMovie = useSelector((state) => state.viewerMovie);
   const dispatch = useDispatch();
-  const getMovieViewer = async (id) => {
-    const url = `https://api.themoviedb.org/3/movie/${id}?api_key=aba76a579f8ef1f0586b7ce86f0bf326&language=en-US`;
-    const response = await fetch(url);
-    const responseJson = await response.json();
-    console.log(responseJson);
-    dispatch({ type: "setViewerMovie", payload: responseJson });
-  };
+
   let { id } = useParams();
   useEffect(() => {
-    getMovieViewer(id);
-  });
+    dispatch(fetchMovieView(id));
+  }, [dispatch, id]);
 
   return (
     <Grid

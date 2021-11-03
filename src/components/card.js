@@ -11,7 +11,7 @@ import {
   CardActions,
   Rating,
 } from "@mui/material/";
-
+import { favoriteMovies } from "../redux/actions";
 export default function MovieCard({ movie }) {
   const { title, vote_average, id, poster_path } = movie;
   const myFavoriteMovies = useSelector((state) => state.myFavoriteMovies);
@@ -25,7 +25,7 @@ export default function MovieCard({ movie }) {
   });
 
   function addStorageFavoritList(listMovie) {
-    dispatch({ type: "myFavoriteMovies", payload: listMovie });
+    dispatch(favoriteMovies(listMovie));
     localStorage.setItem("favorite-movie", JSON.stringify(listMovie));
   }
 

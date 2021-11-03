@@ -1,4 +1,10 @@
-import { createStore } from "redux";
+import {
+  MOVIES,
+  SEARCH,
+  FAVORITE_MOVIES,
+  VIEWER_MOVIE,
+  LOCAL_STORAGE,
+} from "./types";
 
 const initStore = {
   arrayMovies: [],
@@ -7,34 +13,31 @@ const initStore = {
   viewerMovie: [],
 };
 
-function reducer(state = initStore, action) {
+export const movieReducer = (state = initStore, action) => {
   switch (action.type) {
-    case "setArrayMovies": {
+    case MOVIES: {
       return { ...state, arrayMovies: action.payload };
     }
-    case "search": {
+    case SEARCH: {
       return { ...state, search: action.payload };
     }
-    case "myFavoriteMovies":
+    case FAVORITE_MOVIES:
       return {
         ...state,
         myFavoriteMovies: action.payload,
       };
-    case "setViewerMovie":
+    case VIEWER_MOVIE:
       return {
         ...state,
         viewerMovie: action.payload,
       };
-    case "LocalStorage":
+    case LOCAL_STORAGE:
       return {
         ...state,
-        myFavoriteMovies: JSON.parse(localStorage.getItem("favorite-movie")),
+        myFavoriteMovies:
+          JSON.parse(localStorage.getItem("favorite-movie")) || [],
       };
     default:
       return state;
   }
-}
-
-const store = createStore(reducer);
-store.subscribe(() => console.log(store.getState()));
-export default store;
+};

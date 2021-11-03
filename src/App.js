@@ -6,35 +6,26 @@ import NavBar from "./components/Navbar";
 import Home from "./components/Home";
 import Favorite from "./components/FavoriteMovie";
 import ViewerMovie from "./components/ViewerMovie";
-
+import {
+  getLocalStorage,
+  fetchMoviesPopulars,
+  fetchSearchMovies,
+} from "./redux/actions";
 function App() {
   const dispatch = useDispatch();
   const search = useSelector((state) => state.search);
 
-  const getMovieRequest = async (search) => {
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=aba76a579f8ef1f0586b7ce86f0bf326&query=${search}&language=en-US`;
-    const response = await fetch(url);
-    const responseJson = await response.json();
-    dispatch({ type: "setArrayMovies", payload: responseJson.results });
-  };
-  const getMoviePopular = async () => {
-    const url = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=aba76a579f8ef1f0586b7ce86f0bf326&language=en-US`;
-    const response = await fetch(url);
-    const responseJson = await response.json();
-    dispatch({ type: "setArrayMovies", payload: responseJson.results });
-  };
-
   useEffect(() => {
     if (search !== "") {
-      getMovieRequest(search);
+      dispatch(fetchSearchMovies());
     } else {
-      getMoviePopular();
+      dispatch(fetchMoviesPopulars());
     }
-  });
+  }, [dispatch, search]);
 
   useEffect(() => {
-    dispatch({ type: "LocalStorage" });
-  });
+    dispatch(getLocalStorage());
+  }, [dispatch]);
 
   return (
     <>
