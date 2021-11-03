@@ -33,7 +33,7 @@ export default function ViewerMovie() {
       justifyContent="center"
       alignItems="center"
     >
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={4}>
         <CardMedia
           sx={{
             maxWidth: 345,
@@ -51,7 +51,7 @@ export default function ViewerMovie() {
         />
       </Grid>
 
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={4}>
         {" "}
         <CardContent
           sx={{
