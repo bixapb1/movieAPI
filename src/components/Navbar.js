@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -13,7 +14,7 @@ import {
   Badge,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-
+import { search } from "../redux/actions";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -28,7 +29,6 @@ const Search = styled("div")(({ theme }) => ({
     width: "auto",
   },
 }));
-
 const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: "100%",
@@ -38,7 +38,6 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
 }));
-
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
@@ -54,8 +53,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-
-export default function NavBar({ handlerSearch, myFavoriteList }) {
+export default function NavBar() {
+  const myFavoriteMovies = useSelector((state) => state.myFavoriteMovies);
+  const dispatch = useDispatch();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
@@ -78,7 +78,8 @@ export default function NavBar({ handlerSearch, myFavoriteList }) {
               sx={{ mr: 2 }}
             >
               <Badge
-                badgeContent={myFavoriteList ? myFavoriteList.length : 0}
+                badgeContent={myFavoriteMovies ? myFavoriteMovies.length : 0}
+
                 color="error"
               >
                 <Link to="/favorite">
@@ -92,7 +93,7 @@ export default function NavBar({ handlerSearch, myFavoriteList }) {
               component="div"
               sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
             ></Typography>
-            <Search onChange={handlerSearch}>
+            <Search onChange={(event) => dispatch(search(event.target.value))}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>

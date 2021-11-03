@@ -1,8 +1,10 @@
 import * as React from "react";
+import { useSelector } from "react-redux";
 import { Box, Grid, Container } from "@mui/material";
 import Card from "./Card";
 
-export default function Home({ arrayMovies }) {
+export default function Home() {
+  const arrayMovies = useSelector((state) => state.arrayMovies);
   return (
     <>
       <Container sx={{ mt: 10 }} maxWidth="xl">
