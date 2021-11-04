@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/bixapb1/movieAPI.github.io/static/css/main.bcd18701.chunk.css",
+    "main.js": "/bixapb1/movieAPI.github.io/static/js/main.b6fcc3c7.chunk.js",
+    "main.js.map": "/bixapb1/movieAPI.github.io/static/js/main.b6fcc3c7.chunk.js.map",
+    "runtime-main.js": "/bixapb1/movieAPI.github.io/static/js/runtime-main.6644ea27.js",
+    "runtime-main.js.map": "/bixapb1/movieAPI.github.io/static/js/runtime-main.6644ea27.js.map",
+    "static/js/2.7ba2e230.chunk.js": "/bixapb1/movieAPI.github.io/static/js/2.7ba2e230.chunk.js",
+    "static/js/2.7ba2e230.chunk.js.map": "/bixapb1/movieAPI.github.io/static/js/2.7ba2e230.chunk.js.map",
+    "index.html": "/bixapb1/movieAPI.github.io/index.html",
+    "static/css/main.bcd18701.chunk.css.map": "/bixapb1/movieAPI.github.io/static/css/main.bcd18701.chunk.css.map",
+    "static/js/2.7ba2e230.chunk.js.LICENSE.txt": "/bixapb1/movieAPI.github.io/static/js/2.7ba2e230.chunk.js.LICENSE.txt",
+    "static/media/no-poster.d7e60210.jpg": "/bixapb1/movieAPI.github.io/static/media/no-poster.d7e60210.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6644ea27.js",
+    "static/js/2.7ba2e230.chunk.js",
+    "static/css/main.bcd18701.chunk.css",
+    "static/js/main.b6fcc3c7.chunk.js"
+  ]
+}
