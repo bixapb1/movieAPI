@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/bixapb1/movieAPI/static/css/main.bcd18701.chunk.css",
-    "main.js": "/bixapb1/movieAPI/static/js/main.12c7aea6.chunk.js",
-    "main.js.map": "/bixapb1/movieAPI/static/js/main.12c7aea6.chunk.js.map",
-    "runtime-main.js": "/bixapb1/movieAPI/static/js/runtime-main.b16096d5.js",
-    "runtime-main.js.map": "/bixapb1/movieAPI/static/js/runtime-main.b16096d5.js.map",
-    "static/js/2.1990f3a4.chunk.js": "/bixapb1/movieAPI/static/js/2.1990f3a4.chunk.js",
-    "static/js/2.1990f3a4.chunk.js.map": "/bixapb1/movieAPI/static/js/2.1990f3a4.chunk.js.map",
-    "index.html": "/bixapb1/movieAPI/index.html",
-    "static/css/main.bcd18701.chunk.css.map": "/bixapb1/movieAPI/static/css/main.bcd18701.chunk.css.map",
-    "static/js/2.1990f3a4.chunk.js.LICENSE.txt": "/bixapb1/movieAPI/static/js/2.1990f3a4.chunk.js.LICENSE.txt",
-    "static/media/no-poster.d7e60210.jpg": "/bixapb1/movieAPI/static/media/no-poster.d7e60210.jpg"
+    "main.css": "/movieAPI/static/css/main.bcd18701.chunk.css",
+    "main.js": "/movieAPI/static/js/main.12c7aea6.chunk.js",
+    "main.js.map": "/movieAPI/static/js/main.12c7aea6.chunk.js.map",
+    "runtime-main.js": "/movieAPI/static/js/runtime-main.beb53b08.js",
+    "runtime-main.js.map": "/movieAPI/static/js/runtime-main.beb53b08.js.map",
+    "static/js/2.1990f3a4.chunk.js": "/movieAPI/static/js/2.1990f3a4.chunk.js",
+    "static/js/2.1990f3a4.chunk.js.map": "/movieAPI/static/js/2.1990f3a4.chunk.js.map",
+    "index.html": "/movieAPI/index.html",
+    "static/css/main.bcd18701.chunk.css.map": "/movieAPI/static/css/main.bcd18701.chunk.css.map",
+    "static/js/2.1990f3a4.chunk.js.LICENSE.txt": "/movieAPI/static/js/2.1990f3a4.chunk.js.LICENSE.txt",
+    "static/media/no-poster.d7e60210.jpg": "/movieAPI/static/media/no-poster.d7e60210.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.b16096d5.js",
+    "static/js/runtime-main.beb53b08.js",
     "static/js/2.1990f3a4.chunk.js",
     "static/css/main.bcd18701.chunk.css",
     "static/js/main.12c7aea6.chunk.js"
