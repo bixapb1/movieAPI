@@ -7,7 +7,7 @@
     "runtime-main.js.map": "./static/js/runtime-main.beb53b08.js.map",
     "static/js/2.1990f3a4.chunk.js": "./static/js/2.1990f3a4.chunk.js",
     "static/js/2.1990f3a4.chunk.js.map": "./static/js/2.1990f3a4.chunk.js.map",
-    "index.html": "index.html",
+    "index.html": "./index.html",
     "static/css/main.bcd18701.chunk.css.map": "./static/css/main.bcd18701.chunk.css.map",
     "static/js/2.1990f3a4.chunk.js.LICENSE.txt": "./static/js/2.1990f3a4.chunk.js.LICENSE.txt",
     "static/media/no-poster.d7e60210.jpg": "./static/media/no-poster.d7e60210.jpg"
