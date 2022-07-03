@@ -9,18 +9,39 @@ import {
   Grid,
   Button,
   Rating,
+  Box,
 } from "@mui/material/";
 import noPoster from "../assets/no-poster.jpg";
 import { Link } from "react-router-dom";
-import { fetchMovieView } from "../redux/actions";
+import { fetchMovieView, favoriteMovies } from "../redux/actions";
 export default function ViewerMovie() {
-  const viewerMovie = useSelector((state) => state.viewerMovie);
+  const { viewerMovie, myFavoriteMovies } = useSelector((state) => state);
   const dispatch = useDispatch();
-
   let { id } = useParams();
   useEffect(() => {
     dispatch(fetchMovieView(id));
   }, [dispatch, id]);
+
+  const findMovie = myFavoriteMovies.find((movieID) => {
+    return movieID.id === +id;
+  });
+  const deleteMovie = myFavoriteMovies.filter((movieID) => {
+    return movieID.id !== +id;
+  });
+
+  function addFavoritList(listMovie) {
+    dispatch(favoriteMovies(listMovie));
+    localStorage.setItem("favorite-movie", JSON.stringify(listMovie));
+  }
+
+  function handleCardButton() {
+    if (Boolean(findMovie)) {
+      addFavoritList(deleteMovie);
+    } else {
+      const addFavoriteMovie = [...myFavoriteMovies, viewerMovie];
+      addFavoritList(addFavoriteMovie);
+    }
+  }
 
   return (
     <Grid
@@ -102,15 +123,14 @@ export default function ViewerMovie() {
             precision={0.5}
             readOnly
           />
-          <Button
-            sx={{ m: 2 }}
-            component={Link}
-            to="/"
-            variant="outlined"
-            href="#outlined-buttons"
-          >
-            Home
-          </Button>
+          <Box>
+            <Button sx={{ m: 2 }} onClick={handleCardButton} variant="outlined">
+              {Boolean(findMovie) ? "remove movie" : "add movie"}
+            </Button>
+            <Button sx={{ m: 2 }} component={Link} to="/" variant="outlined">
+              Home
+            </Button>
+          </Box>
         </CardContent>
       </Grid>
     </Grid>

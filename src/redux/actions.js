@@ -1,10 +1,4 @@
-import {
-  MOVIES,
-  SEARCH,
-  FAVORITE_MOVIES,
-  VIEWER_MOVIE,
-  LOCAL_STORAGE,
-} from "./types";
+import { MOVIES, SEARCH, FAVORITE_MOVIES, VIEWER_MOVIE } from "./types";
 
 export function setMovies(movies) {
   return { type: MOVIES, payload: movies };
@@ -15,11 +9,8 @@ export function search(search) {
 export function favoriteMovies(favorite) {
   return { type: FAVORITE_MOVIES, payload: favorite };
 }
-export function setViewerMovie(movie) {
+export function viewerMovie(movie) {
   return { type: VIEWER_MOVIE, payload: movie };
-}
-export function getLocalStorage() {
-  return { type: LOCAL_STORAGE };
 }
 
 export function fetchMoviesPopulars() {
@@ -46,6 +37,6 @@ export function fetchMovieView(id) {
     const url = `https://api.themoviedb.org/3/movie/${id}?api_key=aba76a579f8ef1f0586b7ce86f0bf326&language=en-US`;
     const response = await fetch(url);
     const responseJson = await response.json();
-    dispatch(setViewerMovie(responseJson));
+    dispatch(viewerMovie(responseJson));
   };
 }

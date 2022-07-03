@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/Navbar";
 import Home from "./components/Home";
 import Favorite from "./components/FavoriteMovie";
 import ViewerMovie from "./components/ViewerMovie";
 import {
-  getLocalStorage,
   fetchMoviesPopulars,
   fetchSearchMovies,
+  favoriteMovies,
 } from "./redux/actions";
 function App() {
   const dispatch = useDispatch();
@@ -24,7 +24,12 @@ function App() {
   }, [dispatch, search]);
 
   useEffect(() => {
-    dispatch(getLocalStorage());
+    if (JSON.parse(localStorage.getItem("favorite-movie"))) {
+      const getLocalStorage = JSON.parse(
+        localStorage.getItem("favorite-movie")
+      );
+      dispatch(favoriteMovies(getLocalStorage));
+    }
   }, [dispatch]);
 
   return (

@@ -25,21 +25,19 @@ export default function MovieCard({ movie }) {
     return movieID.id !== id;
   });
 
-  function addStorageFavoritList(listMovie) {
-
+  function addFavoritList(listMovie) {
     dispatch(favoriteMovies(listMovie));
     localStorage.setItem("favorite-movie", JSON.stringify(listMovie));
   }
 
   function handleCardButton() {
     if (Boolean(findMovie)) {
-      addStorageFavoritList(deleteMovie);
+      addFavoritList(deleteMovie);
     } else {
       const addFavoriteMovie = [...myFavoriteMovies, movie];
-      addStorageFavoritList(addFavoriteMovie);
+      addFavoritList(addFavoriteMovie);
     }
   }
-
 
   return (
     <Card
@@ -116,7 +114,6 @@ export default function MovieCard({ movie }) {
           size="small"
           color="primary"
           onClick={handleCardButton}
-
         >
           {Boolean(findMovie) ? "remove movie" : "add movie"}
         </Button>

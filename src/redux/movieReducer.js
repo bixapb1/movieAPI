@@ -1,10 +1,4 @@
-import {
-  MOVIES,
-  SEARCH,
-  FAVORITE_MOVIES,
-  VIEWER_MOVIE,
-  LOCAL_STORAGE,
-} from "./types";
+import { MOVIES, SEARCH, FAVORITE_MOVIES, VIEWER_MOVIE } from "./types";
 
 const initStore = {
   arrayMovies: [],
@@ -30,12 +24,6 @@ export const movieReducer = (state = initStore, action) => {
       return {
         ...state,
         viewerMovie: action.payload,
-      };
-    case LOCAL_STORAGE:
-      return {
-        ...state,
-        myFavoriteMovies:
-          JSON.parse(localStorage.getItem("favorite-movie")) || [],
       };
     default:
       return state;
